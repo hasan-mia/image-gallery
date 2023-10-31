@@ -1,11 +1,13 @@
-# Getting Started with Create React App
+# Ollyo Image Gallery
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Ollyo Gallery[Live](https://ollyogallery.vercel.app/).
 
 # Task:
+
 Create a responsive image gallery using React JS with the following features: reordering, deleting multiple images, and setting a feature image. The gallery should be visually appealing and provide a seamless user experience.
 
 ## Requirements:
+
 1. **Gallery Layout:**
    - Implement a grid layout for the image gallery.
    - The gallery should display images with one feature image larger than the others.

@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Layout({ children }) {
     return (
         <>
-            <main>{children}</main>
+            <main className="flex justify-center px-0 md:px-8 my-2">{children}</main>
 
             <ToastContainer
                 position="top-center"
