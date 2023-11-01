@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/*-----------Dragble csss-------- */
+
+/*-----------Dragble csss-------- */
 .draggable-container {
 	display: flex;
 	flex-direction: column;
@@ -19,4 +22,16 @@
 
 .draggable-element:active {
 	cursor: grabbing;
+}
+
+.select-input,
+.select-btn {
+	opacity: 0;
+	transition: all;
+	transition-duration: 0.5s;
+}
+
+.gallery-image:hover .select-input,
+.gallery-image:hover .select-btn {
+	opacity: 100;
 }

@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
 const ItemType = 'ITEM';
@@ -11,10 +10,9 @@ export default function GalleryItem({
     moveItem,
     image,
     isSelected,
-    onSelect,
-    onSetFeature,
+    handleSelect,
+    handleSetFeature,
 }) {
-    const [firstItem, setFirstItem] = useState(null);
     // -----------drugable image hanlde------------------
     const [, ref] = useDrag({
         type: ItemType,
@@ -27,39 +25,27 @@ export default function GalleryItem({
             if (draggedItem.index === index) {
                 return;
             }
-            const updatedItem = { ...draggedItem, index };
             throttledMoveItem(draggedItem.index, index);
-            if (index === 0) {
-                setFirstItem(updatedItem);
-            } else {
-                setFirstItem(null);
-            }
-            console.log('Updated Item:', updatedItem, index);
+            // const updatedItem = { ...draggedItem, index };
         },
     });
 
     // -----------select image handler------------------
     const handleItemClick = () => {
-        onSelect(id);
+        handleSelect(id);
     };
     // -----------select feture image handler------------------
     const handleSetFeatureClick = (e) => {
         e.stopPropagation();
-        onSetFeature(id);
+        handleSetFeature(id);
     };
-
-    useEffect(() => {
-        if (firstItem && index === 0) {
-            onSetFeature(firstItem.id);
-        } else {
-            setFirstItem(null);
-        }
-    }, [onSetFeature, firstItem, index]);
     return (
         <div
             className={`${
-                image.isFeatured ? 'col-span-2 border border-blue-500' : 'col-span-1'
-            } relative h-64 bg-cover bg-center border`}
+                image.isFeatured
+                    ? 'col-span-2 row-span-2 border border-blue-500 h-full'
+                    : 'col-span-1'
+            } relative h-64 bg-cover bg-center border rounded-md`}
             onClick={handleItemClick}
             onKeyDown={(e) => {
                 if (e.key === ' ' || e.key === 'Enter') {
@@ -70,21 +56,23 @@ export default function GalleryItem({
             role="button"
             ref={(node) => ref(drop(node))}
         >
-            <div className="h-full w-full">
-                <div className="absolute inset-0 bg-gray-500 opacity-0 hover:opacity-75 transition duration-300">
+            <div className="h-full w-full gallery-image">
+                <div className="absolute inset-0 bg-gray-600 opacity-0 hover:opacity-75 transition duration-300">
                     <p className="text-white text-center py-2">{image.alt}</p>
                 </div>
                 <input
                     type="checkbox"
                     checked={isSelected}
                     onClick={handleItemClick}
-                    className="absolute start-2 top-2 hover:text-white hover:outline-white"
+                    className={`absolute start-2 top-2 hover:text-white hover:outline-white ${
+                        isSelected ? 'opacity-100' : 'select-input'
+                    } transition-opacity duration-300`}
                 />
-                <img src={image.url} alt={image.alt} className="w-full h-full" />
+                <img src={image.url} alt={image.alt} className="w-full h-full rounded-md" />
                 <button
                     onClick={handleSetFeatureClick}
                     type="button"
-                    className="absolute bottom-0 w-full bg-blue-500 text-white border-none p-2 cursor-pointer"
+                    className="absolute bottom-0 w-full bg-blue-500 text-white border-none rounded-b-md p-2 cursor-pointer select-btn"
                 >
                     {image.isFeatured ? 'Featured' : 'Set as Feature'}
                 </button>

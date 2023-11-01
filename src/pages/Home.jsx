@@ -31,7 +31,6 @@ export default function Home() {
     const [selectedImages, setSelectedImages] = useState([]);
 
     // ----------- handle image select------------------
-
     const handleSelect = (id) => {
         if (selectedImages.includes(id)) {
             setSelectedImages(selectedImages.filter((imageId) => imageId !== id));
@@ -40,10 +39,22 @@ export default function Home() {
         }
     };
 
-    // -----------handle image delete------------------
-
+    // -----------handle image delete and make first image fetured------------------
     const handleDelete = () => {
-        setImages(images.filter((image) => !selectedImages.includes(image.id)));
+        const hasFeaturedImage = selectedImages.includes(
+            images.find((image) => image.isFeatured)?.id
+        );
+        const remainingImages = images.filter((image) => !selectedImages.includes(image.id));
+        if (hasFeaturedImage && remainingImages.length > 0) {
+            const newFeaturedImage = remainingImages[0];
+            newFeaturedImage.isFeatured = true;
+            setImages([
+                newFeaturedImage,
+                ...remainingImages.filter((image) => image.id !== newFeaturedImage.id),
+            ]);
+        } else {
+            setImages(remainingImages);
+        }
         setSelectedImages([]);
     };
 
@@ -65,9 +76,9 @@ export default function Home() {
                 images={images}
                 setImages={setImages}
                 selectedImages={selectedImages}
-                onSelect={handleSelect}
-                onDelete={handleDelete}
-                onSetFeature={handleSetFeature}
+                handleSelect={handleSelect}
+                handleDelete={handleDelete}
+                handleSetFeature={handleSetFeature}
             />
         </div>
     );

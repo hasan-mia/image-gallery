@@ -18,9 +18,8 @@ function DraggableItem({ id, name, index, moveItem }) {
             if (draggedItem.index === index) {
                 return;
             }
-            const updatedItem = { ...draggedItem, index };
+            // const updatedItem = { ...draggedItem, index };
             throttledMoveItem(draggedItem.index, index);
-            console.log('Updated Item:', updatedItem);
         },
     });
 
