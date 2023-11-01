@@ -10,10 +10,10 @@ export default function Gallery({
     onDelete,
     onSetFeature,
 }) {
-    // -----------debounce images------------------
+    // -----------dnd debounce images------------------
     const debouncedSetItems = _.debounce(setImages, 300);
 
-    // -----------moved image handler------------------
+    // -----------dnd moved image handler------------------
     const moveItem = (fromIndex, toIndex) => {
         const updatedItems = [...images];
         const [movedItem] = updatedItems.splice(fromIndex, 1);
@@ -21,8 +21,8 @@ export default function Gallery({
         debouncedSetItems(updatedItems);
     };
     return (
-        <div>
-            <div className="flex justify-between border-b pb-2">
+        <>
+            <div className="flex justify-between border-b pb-2 gap-4">
                 <div className="flex gap-2">
                     <input
                         type="checkbox"
@@ -38,7 +38,7 @@ export default function Gallery({
                     Delete Files
                 </button>
             </div>
-            <div className="gallery-container">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-2">
                 {images?.map((image, index) => (
                     <GalleryItem
                         key={image.id}
@@ -52,6 +52,6 @@ export default function Gallery({
                     />
                 ))}
             </div>
-        </div>
+        </>
     );
 }

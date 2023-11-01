@@ -49,7 +49,6 @@ export default function Home() {
 
     // -----------handle feature image select------------------
     const handleSetFeature = (id) => {
-        // e.stopPropagation();
         setImages((prevImages) => {
             const updatedImages = prevImages.map((image) =>
                 image.id === id ? { ...image, isFeatured: true } : { ...image, isFeatured: false }
@@ -61,7 +60,7 @@ export default function Home() {
     };
 
     return (
-        <div>
+        <div className="px-1">
             <Gallery
                 images={images}
                 setImages={setImages}
