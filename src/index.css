@@ -12,7 +12,7 @@
 .gallery-item {
 	position: relative;
 	cursor: pointer;
-	/* overflow: hidden; */
+	overflow: hidden;
 	border: 1px solid #ccc;
 }
 
@@ -39,4 +39,23 @@
 	border: none;
 	padding: 5px;
 	cursor: pointer;
+}
+
+.draggable-container {
+	display: flex;
+	flex-direction: column;
+	padding: 16px;
+}
+
+.draggable-element {
+	background-color: #f1f1f1;
+	border: 1px solid #ccc;
+	margin-bottom: 8px;
+	padding: 12px;
+	cursor: grab;
+	transition: all 0.3s ease;
+}
+
+.draggable-element:active {
+	cursor: grabbing;
 }
